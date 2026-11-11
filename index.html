@@ -3,6 +3,15 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Ghisa">
+<meta name="theme-color" content="#ECEEE8" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#101318" media="(prefers-color-scheme: dark)">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icon-180.png">
+<link rel="icon" type="image/png" href="icon-192.png">
 <title>Ghisa, la tua scheda</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;800&family=Schibsted+Grotesk:wght@400;500;700&display=swap">
 <style>
@@ -112,7 +121,9 @@ input[type=text],input[type=search],select{width:100%;height:48px;border-radius:
 .edit{display:grid;grid-template-columns:1fr 1fr;gap:10px 12px;padding:4px 0 12px;border-bottom:1px solid var(--line)}
 .edit label{font-size:13px;color:var(--muted);display:flex;flex-direction:column;gap:4px}
 .edit .stp{width:100%;justify-content:space-between}
-.edit .stp input{flex:1;min-width:0}
+.edit .stp input{flex:1;min-width:0;width:0}
+.edit label{min-width:0}
+.edit.e3 .stp button{width:28px;flex:none}
 .edit.e3{grid-template-columns:repeat(3,1fr);gap:10px 8px}
 .edit .tools{grid-column:1/-1;display:flex;gap:8px}
 .edit .tools button{flex:1;min-height:42px;border-radius:10px;border:1.5px solid var(--line);font-size:14px;font-weight:500}
@@ -781,6 +792,7 @@ window.addEventListener('hashchange',route);
 const h0=(location.hash||'').slice(1);if(['oggi','scheda','esercizi','progressi'].includes(h0))tab=h0;
 if(!S.days.some(d=>d.wd===selWd)&&S.days.length&&!S.days.some(d=>d.wd===todayWd()))selWd=todayWd();
 render();renderWk();cloudInit();
+if('serviceWorker' in navigator&&location.protocol==='https:')window.addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}));
 </script>
 </body>
 </html>
