@@ -6,13 +6,13 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
-<meta name="apple-mobile-web-app-title" content="Ghisa">
+<meta name="apple-mobile-web-app-title" content="PONDUS">
 <meta name="theme-color" content="#ECEEE8" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#101318" media="(prefers-color-scheme: dark)">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="icon-180.png">
 <link rel="icon" type="image/png" href="icon-192.png">
-<title>Ghisa, la tua scheda</title>
+<title>PONDUS, la tua scheda</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;800&family=Schibsted+Grotesk:wght@400;500;700&display=swap">
 <style>
 :root{
@@ -112,6 +112,36 @@ svg.fig{display:block}
 .t3 .ring{fill:none;stroke:var(--act);stroke-width:1.5}
 .t3 text{font:700 7px var(--body);fill:var(--ink);paint-order:stroke;stroke:var(--panel);stroke-width:2.6px;stroke-linejoin:round}
 .viewbar{margin-top:8px}
+.btn,.chip,.seg button,.week button,.icon,.chk,.stp button,.steps button{transition:transform .08s,opacity .08s}
+.btn:active,.chip:active,.seg button:active,.week button:active,.icon:active,.chk:active,.stp button:active,.steps button:active,.link:active{transform:scale(.96);opacity:.85}
+.btn.inv{background:var(--ink);color:var(--bg)}
+.sw{position:relative;overflow:hidden}
+.sw-act{position:absolute;top:0;right:0;bottom:0;display:flex}
+.sw-act button{width:104px;font-weight:700;font-size:14px;color:#fff;background:#2B45F5}
+.sw-act button.del{background:#C2371F}
+.sw-row{position:relative;z-index:1;background:var(--bg);transition:transform .22s ease;touch-action:pan-y;-webkit-touch-callout:none;-webkit-user-select:none;user-select:none}
+.card .sw-row{background:var(--surface)}
+li.dragging{transition:transform .16s ease;position:relative}
+li.lift{transition:none;z-index:5;box-shadow:0 10px 28px rgba(0,0,0,.28);border-radius:12px}
+li.lift .sw-row{background:var(--surface)}
+.gest{font-size:13px;color:var(--muted);margin:10px 0 0}
+.slist{list-style:none;margin:0;padding:0}
+.sbox{background:var(--surface);border:1px solid var(--line);border-radius:16px;margin-bottom:10px;overflow:hidden}
+.sbox .sw-row{background:var(--surface);display:block;width:100%;text-align:left;padding:14px 14px 12px}
+.sh1{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.sh1 b{font-family:var(--disp);font-weight:800;font-size:24px;line-height:1;text-transform:uppercase;letter-spacing:.01em;overflow-wrap:anywhere}
+.sh1 svg{flex:none;width:20px;height:20px;stroke:var(--muted);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;transition:transform .2s}
+.sw-row[aria-expanded="true"] .sh1 svg{transform:rotate(180deg)}
+.sh2{display:flex;justify-content:space-between;gap:10px;margin-top:6px;font-size:14px;color:var(--muted)}
+.sh2 b{color:var(--ink);font-weight:700}
+.pbar{display:block;height:6px;border-radius:3px;background:var(--panel);margin-top:8px;overflow:hidden}
+.pbar i{display:block;height:100%;border-radius:3px;background:var(--ok)}
+.pbar i.mid{background:var(--rest)}
+.sbox .det{padding:0 14px 10px;border-bottom:0;border-top:1px solid var(--line)}
+.sbox .det div:first-child{margin-top:8px}
+.week.pick{margin-bottom:6px}
+.card.flash{animation:flash 1.2s}
+@keyframes flash{0%,40%{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent)}100%{box-shadow:none}}
 .stage{position:relative}
 .zbtn{position:absolute;top:8px;right:8px;z-index:1;min-height:36px;padding:0 12px;border-radius:18px;background:var(--surface);border:1px solid var(--line);font-size:13px;font-weight:700}
 .t3 .dim{opacity:.26}
@@ -219,7 +249,7 @@ body.resting #wk .in{padding-bottom:calc(220px + env(safe-area-inset-bottom,0px)
 </style>
 </head>
 <body>
-<header class="top"><div class="brand">Ghisa</div>
+<header class="top"><div class="brand">PONDUS</div>
   <button class="icon" data-act="settings" aria-label="Impostazioni"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3.2"/><path d="M19.4 14.6a1.6 1.6 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.6 1.6 0 0 0-2.7 1.1V21a2 2 0 1 1-4 0v-.2a1.6 1.6 0 0 0-2.7-1.1l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.6 1.6 0 0 0-1.1-2.7H3a2 2 0 1 1 0-4h.2a1.6 1.6 0 0 0 1.1-2.7l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.6 1.6 0 0 0 2.7-1.1V3a2 2 0 1 1 4 0v.2a1.6 1.6 0 0 0 2.7 1.1l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.6 1.6 0 0 0 1.1 2.7h.2a2 2 0 1 1 0 4h-.2a1.6 1.6 0 0 0-1 .8z"/></svg></button>
 </header>
 <main class="wrap" id="view"></main>
@@ -683,7 +713,9 @@ function openSheet(fn){sheetFn=fn;$('#sheetBody').innerHTML=fn();$('#sheet').hid
 function reSheet(){if(sheetFn)$('#sheetBody').innerHTML=sheetFn()}
 function closeSheet(){sheetFn=null;pick=null;$('#sheet').hidden=true;$('#scrim').hidden=true}
 function shTop(t){return `<div class="sh-top"><h2>${t}</h2><button class="icon" data-act="closeSheet" aria-label="Chiudi">${X}</button></div>`}
-function exRow(it,extra){const e=EXM[it.ex];return `<li><button class="row" ${extra||''}>${thumb(e.id)}<span class="nm"><b>${e.n}</b><small>${GROUPS[e.g]}</small></span><span class="num">${it.sets} × ${repStr(e,it.reps)}<small>${wStr(e,it.w)} ${wNote(e)}</small></span></button></li>`}
+function dayRow(di,ii,it,extra){return `<li data-drag="${di}:${ii}"><div class="sw"><div class="sw-act"><button data-act="swapItem" data-d="${di}" data-i="${ii}">Sostituisci</button><button class="del" data-act="delItem" data-d="${di}" data-i="${ii}">Elimina</button></div>${exRow(it,extra,1)}</div></li>`}
+const GEST='<p class="gest">Tieni premuto un esercizio per spostarlo. Scorri verso sinistra per sostituirlo o eliminarlo.</p>';
+function exRow(it,extra,bare){const e=EXM[it.ex];const r=`<button class="row${bare?' sw-row':''}" ${extra||''}>${thumb(e.id)}<span class="nm"><b>${e.n}</b><small>${GROUPS[e.g]}</small></span><span class="num">${it.sets} × ${repStr(e,it.reps)}<small>${wStr(e,it.w)} ${wNote(e)}</small></span></button>`;return bare?r:`<li>${r}</li>`}
 
 function render(){
   document.querySelectorAll('nav.tabs button').forEach(b=>b.dataset.t===tab?b.setAttribute('aria-current','page'):b.removeAttribute('aria-current'));
@@ -706,26 +738,25 @@ function vOggi(){
   if(day){
     h+=`<h1 class="h-day">${esc(day.name)}</h1><p class="sub">${day.items.length?`${listJoin(dayGroups(day))}. Circa ${dayMin(day)} minuti.`:'Questo giorno non ha ancora esercizi.'}</p>`;
     h+=day.items.length?`<button class="btn" data-act="start" data-d="${di}">Inizia allenamento</button>`:`<button class="btn" data-act="tab" data-t="scheda">Aggiungi esercizi</button>`;
-    h+=`<ul class="list">${day.items.map(it=>exRow(it,`data-act="exInfo" data-id="${it.ex}"`)).join('')}</ul>`;
+    h+=`<ul class="list">${day.items.map((it,ii)=>dayRow(di,ii,it,`data-act="exInfo" data-id="${it.ex}"`)).join('')}</ul>${day.items.length?GEST:''}`;
   }else{
     h+=`<h1 class="h-day">Riposo</h1><p class="sub">Nessun allenamento in scheda per ${WDL[selWd].toLowerCase()}. Se hai voglia, puoi farne uno lo stesso.</p>
     <ul class="list">${S.days.map((x,i)=>`<li><button class="row" data-act="start" data-d="${i}"><span class="nm"><b>${esc(x.name)}</b><small>${x.wd!=null?WDL[x.wd]:'Senza giorno fisso'}, ${x.items.length} esercizi</small></span><span class="link">Inizia</span></button></li>`).join('')}</ul>`;
   }
   return h}
 function vScheda(){
-  let h=`<h1 class="sec" style="margin-top:6px">La tua scheda</h1><div class="btn-row" style="margin-bottom:16px"><button class="btn small" data-act="gen">Componi in automatico</button><button class="btn ghost small" data-act="addDay">Aggiungi giorno</button></div>`;
+  let h=`<h1 class="sec" style="margin-top:6px">La tua scheda</h1><div class="btn-row" style="margin-bottom:16px"><button class="btn small" data-act="gen">Componi in automatico</button><button class="btn small inv" data-act="addDay">Aggiungi giorno</button></div>`;
   if(!S.days.length)h+=`<p class="muted">La scheda è vuota. Componila in automatico oppure aggiungi un giorno e scegli tu gli esercizi.</p>`;
   S.days.forEach((d,di)=>{
-    h+=`<section class="card"><input type="text" class="dname" data-ch="dname" data-d="${di}" value="${esc(d.name)}" aria-label="Nome del giorno" maxlength="28">
+    h+=`<section class="card" data-card="${d.id}"><input type="text" class="dname" data-ch="dname" data-d="${di}" value="${esc(d.name)}" aria-label="Nome del giorno" maxlength="28">
     <div style="display:flex;gap:8px;margin-top:8px"><select data-ch="dwd" data-d="${di}" aria-label="Giorno della settimana"><option value="">Senza giorno fisso</option>${WDL.map((l,i)=>`<option value="${i}"${d.wd===i?' selected':''}>${l}</option>`).join('')}</select>
     <button class="icon" data-act="delDay" data-d="${di}" aria-label="Elimina giorno" style="border:1.5px solid var(--line)">${X}</button></div><ul class="list" style="margin-top:8px">`;
     d.items.forEach((it,ii)=>{const e=EXM[it.ex],isOpen=open===di+':'+ii,k=`p:${di}:${ii}:`;
-      h+=exRow(it,`data-act="toggle" data-o="${di}:${ii}" aria-expanded="${isOpen}"`);
+      h+=dayRow(di,ii,it,`data-act="toggle" data-o="${di}:${ii}" aria-expanded="${isOpen}"`);
       if(isOpen)h+=`<li class="edit"><label>Serie ${stp(k+'sets',it.sets,'serie')}</label><label>${e.m==='time'?'Secondi':'Ripetizioni'} ${stp(k+'reps',it.reps,'ripetizioni')}</label>
-        <label>${e.m==='bw'||e.m==='time'?'Zavorra, kg':e.m==='db'?'Kg per manubrio':e.m==='bar'?'Kg con bilanciere':'Kg'} ${stp(k+'w',it.w,'peso')}</label><label>Recupero, secondi ${stp(k+'rest',it.rest,'recupero')}</label>
-        <div class="tools"><button data-act="mv" data-d="${di}" data-i="${ii}" data-v="-1"${ii===0?' disabled':''}>Sposta su</button><button data-act="mv" data-d="${di}" data-i="${ii}" data-v="1"${ii===d.items.length-1?' disabled':''}>Sposta giù</button><button data-act="delItem" data-d="${di}" data-i="${ii}" style="color:var(--danger)">Rimuovi</button></div></li>`;
+        <label>${e.m==='bw'||e.m==='time'?'Zavorra, kg':e.m==='db'?'Kg per manubrio':e.m==='bar'?'Kg con bilanciere':'Kg'} ${stp(k+'w',it.w,'peso')}</label><label>Recupero, secondi ${stp(k+'rest',it.rest,'recupero')}</label></li>`;
     });
-    h+=`</ul><div class="btn-row" style="margin-top:12px"><button class="btn ghost small" data-act="addEx" data-d="${di}">Aggiungi esercizio</button>${d.items.length?`<button class="btn small" data-act="start" data-d="${di}">Inizia</button>`:''}</div></section>`;
+    h+=`</ul>${d.items.length?GEST:''}<div class="btn-row" style="margin-top:12px"><button class="btn ghost small" data-act="addEx" data-d="${di}">Aggiungi esercizio</button>${d.items.length?`<button class="btn small" data-act="start" data-d="${di}">Inizia</button>`:''}</div></section>`;
   });
   return h}
 function libList(){const q=libQ.trim().toLowerCase();const l=EX.filter(e=>(libG==='all'||e.g===libG||e.s.includes(libG))&&(!q||e.n.toLowerCase().includes(q)||e.eq.toLowerCase().includes(q)));
@@ -744,14 +775,25 @@ function vProgressi(){
   h+=`<div class="bars" role="img" aria-label="Allenamenti nelle ultime otto settimane">${wks.map(w=>{const d=new Date(w.a);return `<div><b>${w.n||''}</b><i class="${w.n?'':'z'}" style="height:${w.n?Math.round(w.n/mx*70):3}px"></i>${d.getDate()}/${d.getMonth()+1}</div>`}).join('')}</div><p class="muted sm">Allenamenti per settimana, dal lunedì.</p>`;
   const best={};H.forEach(s=>s.items.forEach(it=>it.sets.forEach(x=>{const e=EXM[it.ex];if(!e)return;const b=best[it.ex];const sc=e.m==='bw'||e.m==='time'?x.w*1000+x.r:x.w*1000+x.r;if(!b||sc>b.sc)best[it.ex]={sc,w:x.w,r:x.r}})));
   h+=`<h2 class="sec">Record</h2><ul class="list" style="margin-top:0">${Object.entries(best).map(([id,b])=>{const e=EXM[id];return `<li class="row">${thumb(id)}<span class="nm"><b>${e.n}</b></span><span class="num">${e.m==='bw'||e.m==='time'?repStr(e,b.r):nf(b.w)+' kg'}<small>${e.m==='bw'||e.m==='time'?(b.w?'+'+nf(b.w)+' kg':e.m==='time'?'di tenuta':'ripetizioni'):'per '+b.r+' ripetizioni'}</small></span></li>`}).join('')}</ul>`;
-  h+=`<h2 class="sec">Storico</h2><ul class="list" style="margin-top:0">${H.slice(0,60).map(s=>{const d=new Date(s.date),o=sessOpen===s.id;
-    return `<li><button class="row" data-act="sess" data-id="${s.id}" aria-expanded="${o}"><span class="nm"><b>${esc(s.name)}</b><small>${d.toLocaleDateString('it-IT',{weekday:'short',day:'numeric',month:'short'})}, ${s.dur} minuti</small></span><span class="num">${nf(s.vol)}<small>kg totali</small></span></button>${o?`<div class="det">${s.items.map(it=>{const e=EXM[it.ex];return e?`<div><span>${e.n}</span><span>${it.sets.map(x=>`${e.m==='bw'||e.m==='time'?'':nf(x.w)+'×'}${x.r}`).join('  ')}</span></div>`:''}).join('')}<button class="link" data-act="delSess" data-id="${s.id}" style="color:var(--danger)">Elimina questa seduta</button></div>`:''}</li>`}).join('')}</ul>`;
+  const CHEV='<svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>';
+  h+=`<h2 class="sec">Storico</h2><ul class="slist">${H.slice(0,60).map(s=>{const d=new Date(s.date),o=sessOpen===s.id,dn=s.dn!=null?s.dn:s.items.reduce((n,it)=>n+it.sets.length,0),pl=s.pl||dn,pc=pl?Math.round(dn/pl*100):100;
+    return `<li class="sbox"><div class="sw"><div class="sw-act"><button class="del" data-act="delSess" data-id="${s.id}">Elimina</button></div>
+    <button class="sw-row" data-act="sess" data-id="${s.id}" aria-expanded="${o}"><span class="sh1"><b>${esc(s.name)}</b>${CHEV}</span>
+    <span class="sh2"><span>${d.toLocaleDateString('it-IT',{weekday:'short',day:'numeric',month:'short'})}, <b>${s.dur} min</b></span><span><b>${pc}%</b> delle serie, ${dn} su ${pl}</span></span>
+    <span class="pbar" role="img" aria-label="Lavoro svolto ${pc}%"><i class="${pc<100?'mid':''}" style="width:${pc}%"></i></span></button></div>
+    ${o?`<div class="det">${s.items.map(it=>{const e=EXM[it.ex];return e?`<div><span>${e.n}</span><span>${it.sets.map(x=>`${e.m==='bw'||e.m==='time'?'':nf(x.w)+'×'}${x.r}`).join('  ')}</span></div>`:''}).join('')}<div><span>Volume</span><span>${nf(s.vol)} kg</span></div><button class="link" data-act="delSess" data-id="${s.id}" style="color:var(--danger)">Elimina questo allenamento</button></div>`:''}</li>`}).join('')}</ul><p class="gest">Tocca un allenamento per vedere il dettaglio. Scorri verso sinistra per eliminarlo.</p>`;
   return h}
 
 /* ---------- fogli ---------- */
 function shExercise(id){const e=EXM[id];return ()=>shTop(e.n)+stage(id)+`<p class="sub" style="margin:12px 0 0">${GROUPS[e.g]}${e.s.length?', in aiuto '+listJoin(e.s.map(g=>GROUPS[g].toLowerCase())):''}. ${e.eq}.</p>
   <ol class="cues">${e.cue.map(c=>`<li>${c}</li>`).join('')}</ol><p class="warn">${e.err}</p>
   ${S.days.length&&!S.active?`<span class="fld">Aggiungi a un giorno della scheda</span><div class="chips">${S.days.map((d,i)=>`<button class="chip" data-act="addTo" data-d="${i}" data-id="${id}">${esc(d.name)}</button>`).join('')}</div>`:''}`}
+let ND={name:'',wd:null};
+function shAddDay(){const has=i=>S.days.find(x=>x.wd===i),o=ND.wd!=null&&has(ND.wd);
+  return shTop('Nuovo giorno')+`<span class="fld">Nome</span><input type="text" data-in="ndname" value="${esc(ND.name)}" placeholder="Per esempio Gambe A" maxlength="28" aria-label="Nome del giorno">
+  <span class="fld">Giorno della settimana</span><div class="week pick" role="group" aria-label="Giorno della settimana">${WD.map((l,i)=>`<button data-act="ndwd" data-v="${i}" class="${has(i)?'has':''}" aria-pressed="${ND.wd===i}" aria-label="${WDL[i]}${has(i)?', ha già una scheda':''}">${l}<i></i></button>`).join('')}</div>
+  <p class="sm ${o?'':'muted'}" style="${o?'color:var(--danger)':''}">${ND.wd==null?'Nessun giorno scelto: resterà senza giorno fisso. Tocca un giorno per assegnarlo.':o?`${WDL[ND.wd]} ha già la scheda «${esc(o.name)}». Se continui ti chiedo se sostituirla.`:`${WDL[ND.wd]} è libero.`} I giorni con il trattino blu hanno già una scheda.</p>
+  <div style="height:16px"></div><button class="btn" data-act="ndgo">Crea giorno</button>`}
 function shPicker(){return shTop(pick.title)+libChips()+`<ul class="list" id="exlist" style="margin-top:0">${libList()}</ul>`}
 function shSettings(){const s=S.settings;return shTop('Impostazioni')+setupForm()+`
   <p class="muted sm" style="margin-top:8px">Livello, obiettivo, altezza e peso servono a scegliere serie, ripetizioni e carichi quando componi in automatico. Il bilanciere può arrivare a ${nf(s.bar+54)} kg con tutti i tuoi dischi.</p>
@@ -798,8 +840,8 @@ function renderWk(){
   h+=`<div class="sets-h"><span></span><span>${e.m==='bw'||e.m==='time'?'Zavorra, kg':e.m==='db'?'Kg per manubrio':'Kg'}</span><span>${e.m==='time'?'Secondi':'Ripetizioni'}</span><span>Fatta</span></div>`;
   it.sets.forEach((s,j)=>{h+=`<div class="set${s.done?' done':''}"><span class="sn">${j+1}</span>${stp(`a:${i}:${j}:w`,s.w,'peso serie '+(j+1))}${stp(`a:${i}:${j}:r`,s.r,'ripetizioni serie '+(j+1))}<button class="chk" data-act="done" data-j="${j}" aria-pressed="${s.done}" aria-label="Serie ${j+1} fatta">${CHECK}</button></div>`});
   h+=`<p class="muted sm" id="hint" style="margin:10px 0">${hint(it)}</p>
-  <div class="btn-row"><button class="btn ghost small" data-act="addSet">Aggiungi serie</button>${it.sets.length>1?`<button class="btn ghost small" data-act="delSet">Togli serie</button>`:''}<button class="btn ghost small" data-act="swap">Sostituisci</button></div>
-  <div class="btn-row" style="margin-top:8px">${i>0?`<button class="btn ghost small" data-act="go" data-i="${i-1}">Precedente</button>`:''}${i<a.items.length-1?`<button class="btn ghost small" data-act="go" data-i="${i+1}">Successivo</button>`:''}</div>`;
+  <div class="btn-row"><button class="btn ghost small" data-act="addSet">Aggiungi serie</button>${it.sets.length>1?`<button class="btn ghost small" data-act="delSet">Togli serie</button>`:''}</div>
+  <div class="btn-row" style="margin-top:8px">${i>0?`<button class="btn ghost small" data-act="go" data-i="${i-1}">Precedente</button>`:''}${i<a.items.length-1?`<button class="btn ghost small" data-act="go" data-i="${i+1}">Successivo</button>`:`<button class="btn small" data-act="end">Termina allenamento</button>`}</div>`;
   $('#wkBody').innerHTML=h;tick()}
 function nextPending(from){const a=S.active;for(let n=0;n<a.items.length;n++){const j=(from+n)%a.items.length;if(a.items[j].sets.some(s=>!s.done))return j}return -1}
 function markDone(j){
@@ -822,7 +864,8 @@ function finish(save){
     const items=a.items.map(it=>({ex:it.ex,t:it.t,sets:it.sets.filter(s=>s.done).map(s=>({r:s.r,w:s.w}))})).filter(it=>it.sets.length);
     const prs=items.filter(it=>{const e=EXM[it.ex],l=lastOf(it.ex);if(e.m==='bw'||e.m==='time')return false;let b=0;H.forEach(s=>s.items.forEach(x=>{if(x.ex===it.ex)x.sets.forEach(y=>b=Math.max(b,y.w))}));return l&&Math.max(...it.sets.map(s=>s.w))>b}).map(it=>EXM[it.ex].n);
     const vol=Math.round(items.reduce((v,it)=>v+it.sets.reduce((q,s)=>q+s.w*s.r*(EXM[it.ex].m==='db'?2:1)*(EXM[it.ex].m==='time'?0:1),0),0));
-    const sess={id:'w'+Date.now(),date:Date.now(),name:a.name,dur:Math.max(1,Math.round((Date.now()-a.start)/6e4)),vol,items};
+    const pl=a.items.reduce((n,x)=>n+x.sets.length,0),dn=a.items.reduce((n,x)=>n+x.sets.filter(s=>s.done).length,0);
+    const sess={id:'w'+Date.now(),date:Date.now(),name:a.name,dur:Math.max(1,Math.round((Date.now()-a.start)/6e4)),vol,pl,dn,items};
     H.unshift(sess);
     const day=S.days.find(d=>d.id===a.dayId);
     if(day)items.forEach(it=>{const p=day.items.find(x=>x.ex===it.ex),e=EXM[it.ex];if(p&&e.m!=='bw'&&e.m!=='time')p.w=Math.max(...it.sets.map(s=>s.w))});
@@ -878,7 +921,7 @@ const ACT={
   wd(d){selWd=+d.v;render()},
   settings(){openSheet(shSettings)},
   closeSheet(){closeSheet()},
-  cfNo(){$('#cf').hidden=true;cfCb=null},
+  cfNo(){$('#cf').hidden=true;cfCb=null;if(tab==='scheda'&&!sheetFn)render()},
   cfYes(){$('#cf').hidden=true;const f=cfCb;cfCb=null;if(f)f()},
   sset(d){const s=S.settings;if(d.f==='level')s.level=+d.v;else if(d.f==='sound'){s.sound=d.v==='1';if(s.sound)audio()}else s[d.f]=d.v;persist();sheetFn?reSheet():render()},
   gset(d){G[d.f]=d.f==='mode'?d.v:+d.v;G.prev=G.prevW=null;sheetFn?reSheet():render()},
@@ -894,11 +937,17 @@ const ACT={
   setupGo(){S.days=genWeek(G.days,45);selWd=S.days.some(d=>d.wd===todayWd())?todayWd():S.days[0].wd;persist();render();toast('Scheda creata: la trovi anche nella sezione Scheda')},
   setupEmpty(){S.days.push({id:uid(),name:'Giorno 1',wd:todayWd(),items:[]});persist();tab='scheda';render()},
   gen(){G.prev=G.prevW=null;openSheet(shGen)},
-  addDay(){const used=S.days.map(d=>d.wd),free=[0,1,2,3,4,5,6].find(i=>!used.includes(i));S.days.push({id:uid(),name:'Giorno '+(S.days.length+1),wd:free===undefined?null:free,items:[]});persist();render()},
+  addDay(){const used=S.days.map(d=>d.wd),free=[0,1,2,3,4,5,6].find(i=>!used.includes(i));ND={name:'',wd:free===undefined?null:free};openSheet(shAddDay)},
+  ndwd(d){ND.wd=ND.wd===+d.v?null:+d.v;reSheet()},
+  ndgo(){const name=ND.name.trim()||'Giorno '+(S.days.length+1),wd=ND.wd,ex=wd==null?-1:S.days.findIndex(x=>x.wd===wd),nd={id:uid(),name,wd,items:[]};
+    const done=msg=>{persist();closeSheet();tab='scheda';open=null;render();toast(msg);setTimeout(()=>{const c=document.querySelector(`[data-card="${nd.id}"]`);if(c){c.scrollIntoView({behavior:'smooth',block:'center'});c.classList.add('flash')}},60)};
+    if(ex>=0)confirmBox(`${WDL[wd]} ha già la scheda «${S.days[ex].name}». Vuoi sostituirla con «${name}»?`,'Sostituisci',()=>{S.days[ex]=nd;done(`«${name}» ha sostituito la scheda di ${WDL[wd].toLowerCase()}`)});
+    else{S.days.push(nd);done(`«${name}» aggiunto${wd!=null?' a '+WDL[wd].toLowerCase():''}`)}},
+  swapItem(d){const di=+d.d,ii=+d.i,old=S.days[di].items[ii];swClose();openPicker('Sostituisci '+EXM[old.ex].n,id=>{const m=mkItem(id);m.sets=old.sets;m.rest=old.rest;S.days[di].items[ii]=m;open=null;persist();closeSheet();render();toast(EXM[id].n+' al posto di '+EXM[old.ex].n)});libG=EXM[old.ex].g;reSheet()},
   delDay(d){const day=S.days[+d.d];confirmBox(`Elimino «${day.name}» dalla scheda?`,'Elimina',()=>{S.days.splice(+d.d,1);open=null;persist();render()})},
   toggle(d){open=open===d.o?null:d.o;render()},
   mv(d){const a=S.days[+d.d].items,i=+d.i,j=i+ +d.v;if(j<0||j>=a.length)return;[a[i],a[j]]=[a[j],a[i]];open=d.d+':'+j;persist();render()},
-  delItem(d){S.days[+d.d].items.splice(+d.i,1);open=null;persist();render()},
+  delItem(d){const [it]=S.days[+d.d].items.splice(+d.i,1);openSw=null;open=null;persist();render();toast(EXM[it.ex].n+' eliminato')},
   addEx(d){const di=+d.d;openPicker('Aggiungi esercizio',id=>{S.days[di].items.push(mkItem(id));persist();closeSheet();render();toast(EXM[id].n+' aggiunto')})},
   addTo(d){S.days[+d.d].items.push(mkItem(d.id));persist();closeSheet();render();toast('Aggiunto a '+S.days[+d.d].name)},
   lg(d){libG=d.v;if(sheetFn)reSheet();else render()},
@@ -920,7 +969,7 @@ const ACT={
   testSound(){const ac=audio();if(!ac){toast('Questo dispositivo non permette il suono qui');return}S.settings.sound=true;persist();alarm(ac.currentTime+.05);reSheet()},
   wipe(){confirmBox('Cancello scheda, impostazioni e tutto lo storico? Non si può annullare.','Cancella tutto',()=>{const del=[...(S.deleted||[]),...H.map(s=>s.id)].slice(-200);if(col)H.forEach(s=>col.doc(s.id).delete().catch(()=>{}));H=[];S=defaults();S.deleted=del;persist();closeSheet();tab='oggi';render();renderWk()})},
   sess(d){sessOpen=sessOpen===d.id?null:d.id;render()},
-  delSess(d){confirmBox('Elimino questa seduta dallo storico?','Elimina',()=>{H=H.filter(s=>s.id!==d.id);S.deleted=[...(S.deleted||[]),d.id].slice(-200);if(col)col.doc(d.id).delete().catch(()=>{});persist();render()})}
+  delSess(d){confirmBox('Elimino questo allenamento dallo storico?','Elimina',()=>{openSw=null;H=H.filter(s=>s.id!==d.id);S.deleted=[...(S.deleted||[]),d.id].slice(-200);if(col)col.doc(d.id).delete().catch(()=>{});persist();render()})}
 };
 document.addEventListener('click',ev=>{
   const sb=ev.target.closest('[data-step]');
@@ -931,11 +980,57 @@ document.addEventListener('click',ev=>{
 document.addEventListener('change',ev=>{const t=ev.target,d=t.dataset;
   if(d.k&&t.type==='number')setK(d.k,parseFloat(String(t.value).replace(',','.')));
   else if(d.ch==='dname'){S.days[+d.d].name=t.value.trim()||'Giorno '+(+d.d+1);persist()}
-  else if(d.ch==='dwd'){const v=t.value===''?null:+t.value;S.days.forEach((x,i)=>{if(v!=null&&x.wd===v&&i!==+d.d)x.wd=null});S.days[+d.d].wd=v;persist();render()}
+  else if(d.ch==='dwd'){const v=t.value===''?null:+t.value,me=S.days[+d.d],o=v==null?null:S.days.find(x=>x.wd===v&&x!==me);
+    if(o)confirmBox(`${WDL[v]} ha già la scheda «${o.name}». Vuoi sostituirla con «${me.name}»?`,'Sostituisci',()=>{S.days=S.days.filter(x=>x!==o);me.wd=v;persist();render();toast(`«${o.name}» rimossa da ${WDL[v].toLowerCase()}`)});
+    else{me.wd=v;persist();render()}}
   else if(d.ch==='gtarget'){G.target=t.value}});
-document.addEventListener('input',ev=>{const t=ev.target;if(t.dataset.in==='q'){libQ=t.value;const l=$('#exlist');if(l)l.innerHTML=libList()}});
+document.addEventListener('input',ev=>{const t=ev.target;if(t.dataset.in==='ndname')ND.name=t.value;if(t.dataset.in==='q'){libQ=t.value;const l=$('#exlist');if(l)l.innerHTML=libList()}});
 document.addEventListener('focusin',ev=>{const t=ev.target;if(t.type==='number'&&t.select)setTimeout(()=>{try{t.select()}catch(e){}},0)});
 document.addEventListener('pointerdown',()=>{if(S.active&&S.settings.sound)audio()},{passive:true});
+/* ---------- gesti: scorri e trascina ---------- */
+let GS=null,openSw=null,noClick=0;
+function swClose(except){if(openSw&&openSw!==except){const r=openSw.querySelector('.sw-row');if(r){r.style.transition='';r.style.transform=''}openSw.classList.remove('open');openSw=null}}
+function gStart(x,y,target){
+  const sw=target.closest&&target.closest('.sw');swClose(sw);
+  if(!sw||target.closest('.sw-act'))return;
+  const li=sw.closest('[data-drag]'),row=sw.querySelector('.sw-row'),W=sw.querySelector('.sw-act').offsetWidth;
+  GS={sw,li,row,W,x,y,mode:null,base:sw.classList.contains('open')?-W:0,cur:0};
+  if(li)GS.t=setTimeout(dragStart,380)}
+function gMove(x,y){if(!GS)return false;const dx=x-GS.x,dy=y-GS.y;
+  if(GS.mode==='drag'){dragMove(y);return true}
+  if(GS.mode==='swipe'){GS.cur=Math.min(0,Math.max(-GS.W-24,GS.base+dx));GS.row.style.transform=`translateX(${GS.cur}px)`;return true}
+  if(Math.abs(dx)>8||Math.abs(dy)>8){clearTimeout(GS.t);
+    if(Math.abs(dx)>Math.abs(dy)&&(dx<0||GS.base<0)){GS.mode='swipe';GS.row.style.transition='none';return true}
+    GS=null}
+  return false}
+function gEnd(){if(!GS)return;clearTimeout(GS.t);const g=GS;GS=null;
+  if(g.mode==='swipe'){g.row.style.transition='';noClick=Date.now();
+    if(g.cur<-g.W/2){g.row.style.transform=`translateX(${-g.W}px)`;g.sw.classList.add('open');openSw=g.sw}
+    else{g.row.style.transform='';g.sw.classList.remove('open');if(openSw===g.sw)openSw=null}}
+  else if(g.mode==='drag')dragEnd(g)}
+function dragStart(){const g=GS;if(!g||g.mode)return;g.mode='drag';
+  const list=g.li.parentElement;list.querySelectorAll('li.edit').forEach(e=>e.style.display='none');
+  g.items=[...list.children].filter(el=>el.hasAttribute('data-drag'));g.rects=g.items.map(el=>el.getBoundingClientRect());
+  g.idx=g.items.indexOf(g.li);g.to=g.idx;g.sy=window.scrollY;g.items.forEach(el=>el.classList.add('dragging'));g.li.classList.add('lift');
+  try{navigator.vibrate&&navigator.vibrate(12)}catch(e){}}
+function dragMove(y){const g=GS,dy=y-g.y+(window.scrollY-g.sy),r=g.rects[g.idx],c=r.top+r.height/2+dy;
+  g.li.style.transform=`translateY(${dy}px)`;
+  let to=g.idx;g.rects.forEach((q,j)=>{const m=q.top+q.height/2;if(j<g.idx&&c<m)to=Math.min(to,j);if(j>g.idx&&c>m)to=Math.max(to,j)});g.to=to;
+  g.items.forEach((el,j)=>{if(j===g.idx)return;let t=0;if(g.idx<to&&j>g.idx&&j<=to)t=-r.height;if(to<g.idx&&j>=to&&j<g.idx)t=r.height;el.style.transform=t?`translateY(${t}px)`:''});
+  if(y<90)window.scrollBy(0,-6);else if(y>innerHeight-140)window.scrollBy(0,6)}
+function dragEnd(g){noClick=Date.now();const [di]=g.li.dataset.drag.split(':').map(Number),a=S.days[di].items;
+  if(g.to!==g.idx){const [m]=a.splice(g.idx,1);a.splice(g.to,0,m);open=null;persist()}
+  render()}
+document.addEventListener('touchstart',ev=>{if(ev.touches.length===1)gStart(ev.touches[0].clientX,ev.touches[0].clientY,ev.target)},{passive:true});
+document.addEventListener('touchmove',ev=>{if(GS&&gMove(ev.touches[0].clientX,ev.touches[0].clientY))ev.preventDefault()},{passive:false});
+document.addEventListener('touchend',gEnd);document.addEventListener('touchcancel',gEnd);
+document.addEventListener('pointerdown',ev=>{if(ev.pointerType==='mouse')gStart(ev.clientX,ev.clientY,ev.target)});
+document.addEventListener('pointermove',ev=>{if(ev.pointerType==='mouse'&&GS)gMove(ev.clientX,ev.clientY)});
+document.addEventListener('pointerup',ev=>{if(ev.pointerType==='mouse')gEnd()});
+document.addEventListener('contextmenu',ev=>{if(ev.target.closest&&ev.target.closest('.sw-row'))ev.preventDefault()});
+document.addEventListener('click',ev=>{
+  if(Date.now()-noClick<300){ev.preventDefault();ev.stopImmediatePropagation();return}
+  const r=ev.target.closest&&ev.target.closest('.sw.open .sw-row');if(r){ev.preventDefault();ev.stopImmediatePropagation();swClose()}},true);
 let drag=null;
 document.addEventListener('pointerdown',ev=>{const el=ev.target.closest&&ev.target.closest('svg[data-3d]');if(!el)return;const id=el.getAttribute('data-3d');drag={id,x:ev.clientX,th:curTh(id)};try{el.setPointerCapture(ev.pointerId)}catch(e){}});
 document.addEventListener('pointermove',ev=>{if(!drag)return;VIEW[drag.id]={th:Math.max(-110,Math.min(20,drag.th-(ev.clientX-drag.x)*.6))};syncView(drag.id)});
