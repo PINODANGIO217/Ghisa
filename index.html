@@ -18,7 +18,7 @@
 :root{
   --bg:#ECEEE8;--surface:#FBFBF8;--panel:#E1E4DC;--ink:#151A1E;--muted:#5A636A;--line:#D0D5CC;
   --accent:#2B45F5;--accent-ink:#FFFFFF;--ok:#12805A;--rest:#F2B01E;--rest-ink:#1B1400;--danger:#C2371F;
-  --fig:#151A1E;--prop:#9AA39A;
+  --fig:#151A1E;--prop:#9AA39A;--act:#E4572E;--tor:#3B444B;
   --disp:"Big Shoulders Display","Arial Narrow","Helvetica Neue",Arial,sans-serif;
   --body:"Schibsted Grotesk",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
   box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
@@ -26,11 +26,11 @@
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){color-scheme:dark;
   --bg:#101318;--surface:#191D24;--panel:#222730;--ink:#ECEEE8;--muted:#98A1AA;--line:#2D333D;
   --accent:#8698FF;--accent-ink:#0A0E22;--ok:#4CC79A;--rest:#FFC53D;--rest-ink:#1B1400;--danger:#FF8A70;
-  --fig:#ECEEE8;--prop:#59626D;}}
+  --fig:#ECEEE8;--prop:#59626D;--act:#FF8A5C;--tor:#BCC4BC;}}
 :root[data-theme="dark"]{color-scheme:dark;
   --bg:#101318;--surface:#191D24;--panel:#222730;--ink:#ECEEE8;--muted:#98A1AA;--line:#2D333D;
   --accent:#8698FF;--accent-ink:#0A0E22;--ok:#4CC79A;--rest:#FFC53D;--rest-ink:#1B1400;--danger:#FF8A70;
-  --fig:#ECEEE8;--prop:#59626D;}
+  --fig:#ECEEE8;--prop:#59626D;--act:#FF8A5C;--tor:#BCC4BC;}
 *,*::before,*::after{box-sizing:border-box}
 html{scroll-padding-top:env(safe-area-inset-top,0px);-webkit-text-size-adjust:100%}
 html,body{height:100%}
@@ -97,6 +97,28 @@ svg.fig{display:block}
 .fig .gh{opacity:.2}
 .stage{background:var(--panel);border-radius:18px;overflow:hidden}
 .stage svg{width:100%;height:auto}
+.stage svg.t3{display:block;touch-action:pan-y;cursor:grab;-webkit-user-select:none;user-select:none}
+.t3 .lm{stroke:var(--fig);stroke-linecap:round;fill:none}
+.t3 .far{opacity:.38}
+.t3 .lm.act{stroke:var(--act)}
+.t3 .tor{fill:var(--tor);stroke:var(--fig);stroke-width:1.2;stroke-linejoin:round}
+.t3 .tor.act{fill:var(--act);stroke:var(--act);fill-opacity:.55}
+.t3 .hd{fill:var(--fig)}
+.t3 .eqs{stroke:var(--accent);stroke-linecap:round}
+.t3 .eqd{fill:var(--accent);stroke:var(--panel);stroke-width:.6}
+.t3 .cab,.t3 .pr,.t3 .pad{stroke:var(--prop);stroke-linecap:round}
+.t3 .prp{fill:var(--prop);fill-opacity:.3;stroke:var(--prop);stroke-width:1;stroke-linejoin:round}
+.t3 .gr{stroke:var(--line);stroke-width:.6}
+.t3 .ring{fill:none;stroke:var(--act);stroke-width:1.5}
+.t3 text{font:700 7px var(--body);fill:var(--ink);paint-order:stroke;stroke:var(--panel);stroke-width:2.6px;stroke-linejoin:round}
+.viewbar{margin-top:8px}
+.stage{position:relative}
+.zbtn{position:absolute;top:8px;right:8px;z-index:1;min-height:36px;padding:0 12px;border-radius:18px;background:var(--surface);border:1px solid var(--line);font-size:13px;font-weight:700}
+.t3 .dim{opacity:.26}
+.t3 .tor.dim{opacity:.4}
+.t3 .halo{stroke:var(--act);stroke-opacity:.22;stroke-linecap:round;fill:none}
+.jinfo{display:flex;gap:8px;align-items:baseline;font-size:14px;color:var(--muted);margin-top:8px}
+.jinfo i{flex:none;width:10px;height:10px;border-radius:5px;background:var(--act);position:relative;top:1px}
 
 .card{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:14px;margin-bottom:14px}
 .card h2,.sec{font-family:var(--disp);font-weight:800;font-size:28px;line-height:1.05}
@@ -282,7 +304,7 @@ const EX=[
  fig:{eq:'db',props:[['inc',66,80,-30,-34]],A:{h:[64,76],t:-42,f:[88,100],a:[46,40]},B:{a:[44,15.5]}}},
 {id:'croci',n:'Croci con manubri',g:'petto',s:[],eq:'Manubri e panca',m:'db',c:0,b:9,
  cue:['Gomiti morbidi e fermi per tutto il movimento.','Apri le braccia ad arco finché senti allungare il petto.','Richiudi come per abbracciare un albero.'],err:'Non scendere oltre la linea delle spalle.',
- fig:{v:'f',eq:'db',arc:1,props:[['ln',50,76,70,76],['ln',60,77,60,101]],A:{h:[60,72],tl:6,f:[80,100],a:[104,64]},B:{a:[64,31]}}},
+ fig:{v:'f',eq:'db',arc:1,t3:[32,0],leg3:[-20,0,-22],p3:[['bench',36,104,74]],props:[['ln',50,76,70,76],['ln',60,77,60,101]],A:{h:[60,72],tl:6,f:[80,100],a:[104,64]},B:{a:[64,31]}}},
 {id:'panca_bil',n:'Panca piana con bilanciere',g:'petto',s:['tricipiti','spalle'],eq:'Bilanciere e panca',m:'bar',c:1,b:45,fam:'panca',
  cue:['Impugnatura poco più larga delle spalle, scapole strette.','Porta il bilanciere a sfiorare la parte bassa del petto.','Spingi verso l’alto e leggermente indietro, verso gli occhi.'],err:'Senza supporti o qualcuno che ti assiste resta leggero: meglio i manubri.',
  fig:{eq:'bar',props:PB,A:{...LIE,a:[38,58]},B:{a:[36,33]}}},
@@ -298,10 +320,10 @@ const EX=[
 
 {id:'lat',n:'Lat machine avanti',g:'schiena',s:['bicipiti'],eq:'Lat machine',m:'stack',c:1,b:45,fam:'lat',
  cue:['Presa larga, petto in fuori, busto appena inclinato indietro.','Tira la barra verso la parte alta del petto portando i gomiti giù.','Risali lento fino a braccia quasi tese.'],err:'Non dondolare con il busto per aiutarti.',
- fig:{v:'f',eq:'latbar',an:[60,-20],props:[['ln',46,72,74,72],['ln',60,73,60,101]],A:{h:[60,68],f:[72,100],a:[86,3]},B:{a:[84,36]}}},
+ fig:{v:'f',eq:'latbar',an:[60,-20],props:[['ln',46,72,74,72],['ln',60,73,60,101]],leg3:[22,2,23],A:{h:[60,68],f:[72,100],a:[86,3]},B:{a:[84,36]}}},
 {id:'lat_stretta',n:'Lat machine presa stretta inversa',g:'schiena',s:['bicipiti'],eq:'Lat machine',m:'stack',c:1,b:42,fam:'lat',
  cue:['Palmi verso di te, mani alla larghezza delle spalle.','Tira al petto tenendo i gomiti vicini ai fianchi.','Controlla la risalita allungando bene i dorsali.'],err:'Non chiudere le spalle in avanti a fine tirata.',
- fig:{v:'f',eq:'latbar',eb:-1,an:[60,-20],props:[['ln',46,72,74,72],['ln',60,73,60,101]],A:{h:[60,68],f:[72,100],a:[66,0]},B:{a:[66,40]}}},
+ fig:{v:'f',eq:'latbar',eb:-1,an:[60,-20],props:[['ln',46,72,74,72],['ln',60,73,60,101]],leg3:[22,2,23],A:{h:[60,68],f:[72,100],a:[66,0]},B:{a:[66,40]}}},
 {id:'rem_bil',n:'Rematore con bilanciere',g:'schiena',s:['bicipiti','post'],eq:'Bilanciere',m:'bar',c:1,b:40,
  cue:['Busto inclinato a circa 45°, schiena piatta, ginocchia morbide.','Tira il bilanciere verso l’ombelico, gomiti vicini al corpo.','Stringi le scapole un istante, poi scendi controllato.'],err:'Non raddrizzare il busto a ogni ripetizione.',
  fig:{eq:'bar',A:{h:[48,58],t:62,f:[58,100],a:[76,80]},B:{a:[66,60]}}},
@@ -317,7 +339,7 @@ const EX=[
 
 {id:'lento_man',n:'Lento avanti con manubri',g:'spalle',s:['tricipiti'],eq:'Manubri e panca a 80°',m:'db',c:1,b:12,
  cue:['Seduto, schiena appoggiata, manubri all’altezza delle orecchie.','Spingi in alto fino a braccia quasi tese.','Scendi controllato fino a gomiti poco sotto le spalle.'],err:'Non inarcare la zona lombare.',
- fig:{v:'f',eq:'db',props:[['ln',44,66,76,66],['ln',60,67,60,101]],A:{h:[60,62],f:[72,100],a:[80,30]},B:{a:[73,-6]}}},
+ fig:{v:'f',eq:'db',props:[['ln',44,66,76,66],['ln',60,67,60,101]],leg3:[22,2,23],A:{h:[60,62],f:[72,100],a:[80,30]},B:{a:[73,-6]}}},
 {id:'military',n:'Military press con bilanciere',g:'spalle',s:['tricipiti','core'],eq:'Bilanciere',m:'bar',c:1,b:30,
  cue:['In piedi, bilanciere sulle clavicole, glutei e addome contratti.','Spingi in verticale spostando la testa indietro quel tanto che basta.','A braccia tese il bilanciere è sopra la nuca.'],err:'Non usare la spinta delle gambe.',
  fig:{v:'f',eq:'bar',A:{h:[60,52],f:[68,100],a:[76,20]},B:{a:[72,-16]}}},
@@ -326,7 +348,7 @@ const EX=[
  fig:{v:'f',eq:'db',eb:-1,arc:1,A:{h:[60,52],f:[66,100],a:[75,57]},B:{a:[105,24]}}},
 {id:'alz_post',n:'Alzate posteriori a busto flesso',g:'spalle',s:['schiena'],eq:'Manubri',m:'db',c:0,b:5,
  cue:['Busto quasi parallelo al pavimento, schiena piatta.','Apri le braccia di lato guidando con i gomiti.','Fermati all’altezza delle spalle e scendi lento.'],err:'Non tirare con il trapezio alzando le spalle.',
- fig:{v:'f',eq:'db',eb:-1,arc:1,hd:[0,-5],A:{h:[60,58],tl:16,f:[68,100],a:[68,78]},B:{a:[104,44]}}},
+ fig:{v:'f',eq:'db',eb:-1,arc:1,hd:[0,-5],t3:[27,-17],leg3:[4,22,0],A:{h:[60,58],tl:16,f:[68,100],a:[68,78]},B:{a:[104,44]}}},
 {id:'alz_front',n:'Alzate frontali',g:'spalle',s:[],eq:'Manubri',m:'db',c:0,b:6,
  cue:['In piedi, manubri davanti alle cosce.','Solleva le braccia tese davanti a te fino all’altezza degli occhi.','Scendi controllando, senza oscillare.'],err:'Non inclinarti indietro per aiutarti.',
  fig:{eq:'db',arc:1,A:{...ST,a:[63,57]},B:{a:[96,22]}}},
@@ -348,7 +370,7 @@ const EX=[
  fig:{eq:'db',props:[['inc',66,80,-22,-40]],A:{h:[64,76],t:-30,f:[88,100],a:[49,85]},B:{a:[62,54]}}},
 {id:'curl_conc',n:'Curl concentrato',g:'bicipiti',s:[],eq:'Manubrio e panca',m:'db1',c:0,b:8,
  cue:['Seduto, gomito appoggiato all’interno della coscia.','Porta il manubrio verso la spalla senza muovere il braccio.','Stringi un secondo in alto, poi scendi lento.'],err:'Le ripetizioni sono per braccio.',
- fig:{eq:'db',props:[['bench',30,66,72]],A:{h:[48,70],t:35,f:[78,100],a:[74,80]},B:{a:[71,44.5]}}},
+ fig:{eq:'db',uni:1,props:[['bench',30,66,72]],A:{h:[48,70],t:35,f:[78,100],a:[74,80]},B:{a:[71,44.5]}}},
 
 {id:'pushdown',n:'Pushdown alla lat machine',g:'tricipiti',s:[],eq:'Lat machine',m:'stack',c:0,b:22.5,
  cue:['Gomiti incollati ai fianchi, busto appena inclinato.','Spingi la barra in basso fino a braccia tese.','Risali finché gli avambracci superano di poco l’orizzontale.'],err:'Non far salire i gomiti in avanti.',
@@ -361,7 +383,7 @@ const EX=[
  fig:{eq:'db',A:{...ST,a:[50,17]},B:{a:[60,-17]}}},
 {id:'kickback',n:'Kickback con manubrio',g:'tricipiti',s:[],eq:'Manubrio',m:'db1',c:0,b:5,
  cue:['Busto flesso, braccio lungo il fianco parallelo al pavimento.','Distendi l’avambraccio all’indietro fino a braccio teso.','Torna a 90° senza far scendere il gomito.'],err:'Le ripetizioni sono per braccio.',
- fig:{eq:'db',A:{h:[48,58],t:65,f:[58,100],a:[62,70]},B:{a:[43,60]}}},
+ fig:{eq:'db',uni:1,A:{h:[48,58],t:65,f:[58,100],a:[62,70]},B:{a:[43,60]}}},
 
 {id:'legext',n:'Leg extension',g:'quad',s:[],eq:'Leg extension',m:'stack',c:0,b:40,
  cue:['Schiena appoggiata, ginocchio in linea con il perno della macchina.','Distendi le gambe fino quasi al blocco.','Scendi in tre secondi senza far sbattere il carico.'],err:'Non staccare i glutei dalla seduta.',
@@ -410,6 +432,126 @@ const EX=[
 ];
 /*FIG-END*/
 const EXM=Object.fromEntries(EX.map(e=>[e.id,e]));
+/* ---------- modellino 3D ---------- */
+const VIEW={},C3={};
+const v3sub=(a,b)=>[a[0]-b[0],a[1]-b[1],a[2]-b[2]],v3len=v=>Math.hypot(v[0],v[1],v[2])||1e-6,v3mid=(a,b)=>[(a[0]+b[0])/2,(a[1]+b[1])/2,(a[2]+b[2])/2];
+const v3ang=(u,v)=>Math.acos(Math.max(-1,Math.min(1,(u[0]*v[0]+u[1]*v[1]+u[2]*v[2])/(v3len(u)*v3len(v)))))*180/Math.PI;
+const ang3=(a,b,c)=>v3ang(v3sub(a,b),v3sub(c,b));
+function baseTh(id){return EXM[id].fig.v==='f'?-62:-34}
+function presetTh(id,v){return v==='lato'?0:v==='fronte'?-90:baseTh(id)}
+function curTh(id){return VIEW[id]?VIEW[id].th:baseTh(id)}
+function joints3(e,k){
+  const F=e.fig,s=skel(F,k),J={},E=F.eq,two=e.m==='db1'&&!F.one&&!F.uni,bars=(F.props||[]).some(p=>p[0]==='bars');
+  let zE=13,zH=12;if(E==='bar'){zE=16;zH=16}else if(E==='cable'){zE=10;zH=6}if(two){zE=10;zH=3}if(bars){zE=16;zH=17}
+  if(!s.front){
+    const P=(p,z)=>[p[0]-60,p[1],z];
+    J.neck=P(s.neck,0);J.head=P(s.head,0);J.shN=P(s.sh,11);J.shF=P(s.sh,-11);J.hpN=P(s.hp,7);J.hpF=P(s.hp,-7);
+    if(s.arm){J.elN=P(s.arm[0],zE);J.haN=P(s.arm[1],zH);
+      if(F.uni){J.elF=[J.shF[0]+1,J.shF[1]+18,-12];J.haF=[J.shF[0]+3,J.shF[1]+34,-12]}
+      else{const a=s.arm2||s.arm;J.elF=P(a[0],-zE);J.haF=P(a[1],-zH)}}
+    if(s.leg){J.knN=P(s.leg[0],8);J.ftN=P(s.leg[1],8);const l=s.leg2||s.leg;J.knF=P(l[0],-8);J.ftF=P(l[1],-8)}
+  }else{
+    const cx=s.h[0],hy=s.h[1],tv=F.t3||[0,s.neck[1]-hy],L=Math.hypot(tv[0],tv[1])||1,u=[tv[0]/L,tv[1]/L];
+    J.neck=[tv[0],hy+tv[1],0];J.head=[J.neck[0]+u[0]*9,J.neck[1]+u[1]*9,0];
+    const sz=s.sh[0]-cx,hz=s.hp[0]-cx;
+    J.shN=[J.neck[0],J.neck[1]+1,sz];J.shF=[J.neck[0],J.neck[1]+1,-sz];J.hpN=[0,s.hp[1],hz];J.hpF=[0,s.hp[1],-hz];
+    if(s.arm){const [e1,h1]=s.arm.map(p=>[p[0]-s.sh[0],p[1]-s.sh[1]]);
+      J.elN=[J.shN[0],J.shN[1]+e1[1],sz+e1[0]];J.haN=[J.shN[0],J.shN[1]+h1[1],sz+h1[0]];
+      J.elF=[J.shF[0],J.shF[1]+e1[1],-sz-e1[0]];J.haF=[J.shF[0],J.shF[1]+h1[1],-sz-h1[0]]}
+    if(F.leg3){const [ks,ky,fs]=F.leg3;J.knN=[ks,s.hp[1]+ky,hz+3];J.ftN=[fs,100,hz+4];J.knF=[ks,s.hp[1]+ky,-hz-3];J.ftF=[fs,100,-hz-4]}
+    else if(s.leg){const [k1,f1]=s.leg.map(p=>[p[0]-s.hp[0],p[1]-s.hp[1]]);
+      J.knN=[0,s.hp[1]+k1[1],hz+k1[0]];J.ftN=[0,s.hp[1]+f1[1],hz+f1[0]];J.knF=[0,s.hp[1]+k1[1],-hz-k1[0]];J.ftF=[0,s.hp[1]+f1[1],-hz-f1[0]]}
+  }
+  if(F.foot!==0)for(const q of ['N','F']){const f=J['ft'+q];if(f)J['to'+q]=[f[0]+7,f[1]>90?100:f[1],f[2]]}
+  return J}
+const SEGS=[['uaN','shN','elN',4.6],['faN','elN','haN',4],['uaF','shF','elF',4.6],['faF','elF','haF',4],['thN','hpN','knN',5.8],['sbN','knN','ftN',4.8],['thF','hpF','knF',5.8],['sbF','knF','ftF',4.8],['foN','ftN','toN',3.4],['foF','ftF','toF',3.4]];
+const JC=[['Gomito','shN','elN','haN'],['Ginocchio','hpN','knN','ftN'],['Anca','shN','hpN','knN'],['Spalla','hpN','shN','elN'],['Spalla','shF','shN','elN']];
+function bodyP(J,act){const L=[],tc='tor'+(act.tor?' act':'');
+  L.push({t:'p',pts:[J.shN,J.shF,J.hpF,J.hpN],c:tc});
+  const hm=v3mid(J.hpN,J.hpF);L.push({t:'s',a:J.neck,b:hm,w:5,c:'lm'+(act.tor?' act':'')});
+  L.push({t:'s',a:J.shN,b:J.shF,w:3.6,c:'lm'},{t:'s',a:J.hpN,b:J.hpF,w:3.6,c:'lm'},{t:'s',a:J.neck,b:J.head,w:3.4,c:'lm'},{t:'c',p:J.head,r:6.2,c:'hd'});
+  for(const [n,a,b,w] of SEGS)if(J[a]&&J[b])L.push({t:'s',a:J[a],b:J[b],w,c:'lm'+(act[n]?' act':'')});
+  return L}
+function props3(F){
+  const list=F.p3||F.props||[],front=F.v==='f'&&!F.p3,cx=front?F.A.h[0]:60,L=[];
+  const W=(x,y,z)=>front?[z,y,x-cx]:[x-60,y,z];
+  const quad=(a,b,e)=>L.push({t:'p',c:'prp',pts:[W(a[0],a[1],-e),W(b[0],b[1],-e),W(b[0],b[1],e),W(a[0],a[1],e)]});
+  const post=(x,y1,y2,z)=>L.push({t:'s',c:'pr',w:2,a:W(x,y1,z),b:W(x,y2,z)});
+  for(const [t,a,b,c,d] of list){
+    if(t==='bench'){quad([a,c+2],[b,c+2],13);for(const x of [a+5,b-5])for(const z of [-10,10])post(x,c+3,101,z)}
+    else if(t==='inc'){quad([a,b],[a+c,b+d],12);quad([a,b],[a+18,b],12);post(a+8,b+1,101,0);post(a+c*.6,b+d*.6,101,0)}
+    else if(t==='bars'){for(const z of [-17,17]){L.push({t:'s',c:'pr',w:2.6,a:W(a,c+3,z),b:W(b,c+3,z)});post(a+6,c+4,101,z);post(b-6,c+4,101,z)}}
+    else if(t==='tower'){post(a,101,c-3,0);L.push({t:'s',c:'pr',w:2,a:W(a,c-3,0),b:W(b,c-3,0)})}
+    else if(t==='ln'){if(Math.abs(c-a)<3)post(a,b,d,0);else quad([a,b],[c,d],front?14:12)}
+  }
+  return L}
+function eq3(e,J){
+  const F=e.fig,L=[],hN=J.haN,hF=J.haF,E=F.eq;if(!E||!hN)return L;
+  const S=(a,b,w,c)=>L.push({t:'s',a,b,w,c:c||'eqs'}),D=(p,r)=>L.push({t:'d',p,r,c:'eqd'});
+  const m=v3mid(hN,hF),z1=Math.min(hN[2],hF[2]),z2=Math.max(hN[2],hF[2]);
+  const anc=()=>F.v==='f'?[0,F.an[1],F.an[0]-F.A.h[0]]:[F.an[0]-60,F.an[1],0];
+  if(E==='bar'){S([m[0],m[1],z1-16],[m[0],m[1],z2+16],2.2);D([m[0],m[1],z1-11],9);D([m[0],m[1],z2+11],9)}
+  else if(E==='db'){const two=e.m==='db1'&&!F.one&&!F.uni;
+    for(const h of two?[m]:F.one||F.uni?[hN]:[hN,hF]){S([h[0],h[1],h[2]-6],[h[0],h[1],h[2]+6],2);D([h[0],h[1],h[2]-5],3.6);D([h[0],h[1],h[2]+5],3.6)}}
+  else if(E==='cable'){S(anc(),[m[0],m[1],0],.9,'cab');S([m[0],m[1],z1-3],[m[0],m[1],z2+3],2.4)}
+  else if(E==='latbar'){S([m[0],m[1],z1-9],[m[0],m[1],z2+9],2.4);S(anc(),[m[0],m[1],0],.9,'cab')}
+  else if(E==='pad'&&J.ftN){const f=J.ftN;S([f[0]+2,f[1]-3,-12],[f[0]+2,f[1]-3,12],5,'pad')}
+  return L}
+function proj(p,th,C){const r=th*Math.PI/180,ph=.3,s=p[0]-C[0],y=p[1]-C[1],z=p[2]-C[2];
+  const x1=s*Math.cos(r)+z*Math.sin(r),d=-s*Math.sin(r)+z*Math.cos(r),Y=y*Math.cos(ph)+d*Math.sin(ph),D=d*Math.cos(ph)-y*Math.sin(ph),f=420/(420-D);
+  return [x1*f,Y*f,D,f]}
+function prep3(id){if(C3[id])return C3[id];
+  const e=EXM[id],props=props3(e.fig),J0=joints3(e,0),J1=joints3(e,1),act={};
+  for(const [n,a,b] of SEGS)if(J0[a]&&J0[b])act[n]=v3ang(v3sub(J0[b],J0[a]),v3sub(J1[b],J1[a]))>18;
+  act.tor=v3ang(v3sub(J0.neck,v3mid(J0.hpN,J0.hpF)),v3sub(J1.neck,v3mid(J1.hpN,J1.hpF)))>18;
+  let info=null,best=12;
+  for(const [n,a,b,c] of JC){if(!J0[a]||!J0[c])continue;const x=ang3(J0[a],J0[b],J0[c]),y=ang3(J1[a],J1[b],J1[c]);if(Math.abs(y-x)>best){best=Math.abs(y-x);info={n,a:Math.round(x/5)*5,b:Math.round(y/5)*5,j:[a,b,c]}}}
+  const pts=[],add=L=>L.forEach(q=>q.t==='s'?pts.push(q.a,q.b):q.t==='p'?pts.push(...q.pts):pts.push(q.p));
+  for(const k of [0,.5,1]){const J=joints3(e,k);pts.push(...Object.values(J));add(eq3(e,J))}add(props);
+  const mn=[1e9,1e9,1e9],mx=[-1e9,-1e9,-1e9];pts.forEach(p=>{for(let i=0;i<3;i++){mn[i]=Math.min(mn[i],p[i]);mx[i]=Math.max(mx[i],p[i])}});
+  const C=[(mn[0]+mx[0])/2,(mn[1]+mx[1])/2,(mn[2]+mx[2])/2];
+  const fp=[];
+  for(const k of [0,.5,1]){const J=joints3(e,k);for(const [n,a,b] of SEGS)if(act[n]&&J[a]&&J[b])fp.push(J[a],J[b]);if(act.tor)fp.push(J.neck,J.shN,J.shF,J.hpN,J.hpF);
+    if(fp.length)eq3(e,J).forEach(q=>q.c==='cab'?fp.push(q.b):q.t==='s'?fp.push(q.a,q.b):q.t==='d'?fp.push(q.p):0)}
+  const ths=[];for(let t=-110;t<=20;t+=10)ths.push(t);
+  const full=fitBox(pts,ths,C,9,1.45,1.9),foc=fp.length>=4?fitBox(fp,ths,C,10,1.45,1.9):null,zone=foc&&foc[2]<full[2]*.8?foc:null;
+  const tb=fitBox(zone?fp:pts,[baseTh(id)],C,6,1,1),vbs=b=>b.map(v=>v.toFixed(1)).join(' ');
+  return C3[id]={props,act,info,C,box:full,vb:vbs(full),zbox:zone,vbZ:zone?vbs(zone):null,zs:zone?Math.max(.5,Math.sqrt(zone[2]/full[2])):1,tbox:tb,vbT:vbs(tb),ts:Math.max(.55,Math.sqrt(tb[2]/full[2]))}}
+let ZOOM=true;
+function fitBox(pts,ths,C,pad,a0,a1){let X0=1e9,X1=-1e9,Y0=1e9,Y1=-1e9;
+  for(const th of ths)for(const p of pts){const q=proj(p,th,C);X0=Math.min(X0,q[0]);X1=Math.max(X1,q[0]);Y0=Math.min(Y0,q[1]);Y1=Math.max(Y1,q[1])}
+  let x=X0-pad,y=Y0-pad-4,w=X1-X0+2*pad,h=Y1-Y0+2*pad+4;
+  if(w/h<a0){const nw=h*a0;x-=(nw-w)/2;w=nw}else if(w/h>a1){const nh=w/a1;y-=(nh-h)/2;h=nh}
+  return [x,y,w,h]}
+function draw3(id,k,th,mode){
+  const P=prep3(id),e=EXM[id],J=joints3(e,k),C=P.C,items=[],f1=v=>v.toFixed(1);
+  if(!mode)mode=ZOOM&&P.zbox?'z':'f';
+  const sc=mode==='z'?P.zs:mode==='t'?P.ts:1,dim=mode!=='f';
+  const hipD=proj(v3mid(J.hpN,J.hpF),th,C)[2];
+  let g='';
+  if(mode!=='t'){
+    for(let i=-4;i<=4;i++){const a=proj([C[0]+i*15,102,-30],th,C),b=proj([C[0]+i*15,102,30],th,C);g+=`<line class="gr" stroke-width="${f1(.6*sc)}" x1="${f1(a[0])}" y1="${f1(a[1])}" x2="${f1(b[0])}" y2="${f1(b[1])}"/>`}
+    for(let j=-2;j<=2;j++){const a=proj([C[0]-60,102,j*15],th,C),b=proj([C[0]+60,102,j*15],th,C);g+=`<line class="gr" stroke-width="${f1(.6*sc)}" x1="${f1(a[0])}" y1="${f1(a[1])}" x2="${f1(b[0])}" y2="${f1(b[1])}"/>`}}
+  for(const q of [...P.props,...bodyP(J,P.act),...eq3(e,J)]){
+    const isLm=q.c.startsWith('lm'),isAct=q.c.includes('act');
+    if(q.t==='s'){const a=proj(q.a,th,C),b=proj(q.b,th,C),D=(a[2]+b[2])/2,far=isLm&&D<hipD-4,w=q.w*sc*(a[3]+b[3])/2,xy=`x1="${f1(a[0])}" y1="${f1(a[1])}" x2="${f1(b[0])}" y2="${f1(b[1])}"`;
+      if(isAct)items.push([D-.01,`<line class="halo${far?' far':''}" stroke-width="${f1(w*2.6)}" ${xy}/>`]);
+      items.push([D,`<line class="${q.c}${far?' far':''}${dim&&isLm&&!isAct?' dim':''}" stroke-width="${f1(w)}" ${xy}/>`])}
+    else if(q.t==='p'){const ps=q.pts.map(p=>proj(p,th,C));items.push([ps.reduce((s,p)=>s+p[2],0)/ps.length,`<polygon class="${q.c}${dim&&q.c==='tor'?' dim':''}" stroke-width="${f1((q.c.startsWith('tor')?1.2:1)*sc)}" points="${ps.map(p=>f1(p[0])+','+f1(p[1])).join(' ')}"/>`])}
+    else if(q.t==='d'){const ps=[];for(let i=0;i<10;i++){const a=i/10*2*Math.PI;ps.push(proj([q.p[0]+q.r*Math.cos(a),q.p[1]+q.r*Math.sin(a),q.p[2]],th,C))}
+      items.push([proj(q.p,th,C)[2]+.5,`<polygon class="${q.c}" stroke-width="${f1(.6*sc)}" points="${ps.map(p=>f1(p[0])+','+f1(p[1])).join(' ')}"/>`])}
+    else{const a=proj(q.p,th,C);items.push([a[2],`<circle class="${q.c}${dim?' dim':''}" cx="${f1(a[0])}" cy="${f1(a[1])}" r="${f1(q.r*a[3])}"/>`])}
+  }
+  items.sort((a,b)=>a[0]-b[0]);
+  let out=g+items.map(x=>x[1]).join('');
+  if(P.info&&mode!=='t'){const [a,b,c]=P.info.j,q=proj(J[b],th,C),v=Math.round(ang3(J[a],J[b],J[c]));
+    const lb=`${P.info.n} ${v}°`,[bx,by,bw]=mode==='z'?P.zbox:P.box,fs=7*sc,tx=Math.max(bx+3*sc,Math.min(q[0]+8*sc,bx+bw-lb.length*fs*.59-3*sc)),ty=Math.max(by+fs+2,q[1]-7*sc);
+    out+=`<circle class="ring" stroke-width="${f1(1.5*sc)}" cx="${f1(q[0])}" cy="${f1(q[1])}" r="${f1(5.5*sc*q[3])}"/><text style="font-size:${f1(fs)}px;stroke-width:${f1(2.6*sc)}px" x="${f1(tx)}" y="${f1(ty)}">${lb}</text>`}
+  return out}
+function syncView(id){const th=curTh(id);
+  document.querySelectorAll(`[data-act="view"][data-id="${id}"]`).forEach(b=>b.setAttribute('aria-pressed',String(Math.abs(presetTh(id,b.dataset.v)-th)<1)));
+  if(still)document.querySelectorAll(`svg[data-3d="${id}"]`).forEach(el=>el.innerHTML=draw3(id,1,th))}
+
 const GROUPS={petto:'Petto',schiena:'Schiena',spalle:'Spalle',bicipiti:'Bicipiti',tricipiti:'Tricipiti',quad:'Quadricipiti',post:'Femorali e glutei',polpacci:'Polpacci',core:'Addome'};
 const WD=['L','M','M','G','V','S','D'],WDL=['Lunedì','Martedì','Mercoledì','Giovedì','Venerdì','Sabato','Domenica'];
 const LEVELS=['Principiante','Intermedio','Avanzato'],GOALS={forza:'Forza',iper:'Massa',res:'Resistenza'};
@@ -515,14 +657,19 @@ function listJoin(a){return a.length<2?a.join(''):a.slice(0,-1).join(', ')+' e '
 
 /* ---------- figure ---------- */
 const thumbs={};
-function thumb(id){return thumbs[id]||(thumbs[id]=`<span class="thumb"><svg class="fig" viewBox="${vbFor(id,1)}" aria-hidden="true">${figStatic(EXM[id].fig)}</svg></span>`)}
-function stage(id){return `<div class="stage"><svg class="fig" viewBox="${vbFor(id,1.7)}" data-anim="${id}" role="img" aria-label="Esecuzione: ${esc(EXM[id].n)}">${figStatic(EXM[id].fig)}</svg></div>`}
+function thumb(id){return thumbs[id]||(thumbs[id]=`<span class="thumb"><svg class="t3" viewBox="${prep3(id).vbT}" aria-hidden="true">${draw3(id,1,baseTh(id),'t')}</svg></span>`)}
+function stage(id){const P=prep3(id),th=curTh(id),i=P.info;
+  return `<div class="stage">${P.vbZ?`<button class="zbtn" data-act="zoom">${ZOOM?'Corpo intero':'Solo la zona'}</button>`:''}<svg class="t3" viewBox="${ZOOM&&P.vbZ?P.vbZ:P.vb}" data-3d="${id}" role="img" aria-label="Modellino 3D: ${esc(EXM[id].n)}. Trascina in orizzontale per ruotarlo.">${draw3(id,1,th)}</svg></div>
+  <div class="viewbar"><div class="seg">${[['lato','Lato'],['tq','3/4'],['fronte','Fronte']].map(([v,l])=>`<button data-act="view" data-id="${id}" data-v="${v}" aria-pressed="${VIEW[id]?Math.abs(presetTh(id,v)-th)<1:v==='tq'}">${l}</button>`).join('')}</div></div>
+  <p class="jinfo"><i></i><span>${i?`${i.n}: da ${i.a}° a ${i.b}°. `:''}In arancione la zona che lavora. Trascina il modellino per ruotarlo.</span></p>`}
 const still=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 let lastF=0;
-function loop(ts){requestAnimationFrame(loop);if(still||ts-lastF<40)return;lastF=ts;
-  const els=document.querySelectorAll('svg[data-anim]');if(!els.length)return;
-  const ph=(ts%2800)/2800,k=ph<.42?.5-.5*Math.cos(Math.PI*ph/.42):ph<.52?1:ph<.94?.5+.5*Math.cos(Math.PI*(ph-.52)/.42):0;
-  els.forEach(el=>{if(el.getBoundingClientRect().width)el.innerHTML=figFrame(EXM[el.dataset.anim].fig,k)})}
+function loop(ts){requestAnimationFrame(loop);if(ts-lastF<40)return;lastF=ts;
+  const els=document.querySelectorAll('svg[data-3d]');if(!els.length)return;
+  const ph=(ts%3600)/3600,k=still?1:ph<.42?.5-.5*Math.cos(Math.PI*ph/.42):ph<.52?1:ph<.94?.5+.5*Math.cos(Math.PI*(ph-.52)/.42):0;
+  if(still&&!drag)return;
+  els.forEach(el=>{if(!el.getBoundingClientRect().width)return;const id=el.getAttribute('data-3d');
+    const th=VIEW[id]?VIEW[id].th:baseTh(id)+(still?0:9*Math.sin(ts/7000*2*Math.PI));el.innerHTML=draw3(id,k,th)})}
 requestAnimationFrame(loop);
 
 /* ---------- interfaccia ---------- */
@@ -725,6 +872,8 @@ function setK(k,v){const r=ref(k);if(!r)return;const old=r.o[r.f];if(isNaN(v))v=
 function openPicker(title,cb){pick={title,cb};libG='all';libQ='';openSheet(shPicker)}
 const ACT={
   none(){},
+  zoom(){ZOOM=!ZOOM;if(sheetFn)reSheet();else if(S.active)renderWk()},
+  view(d){VIEW[d.id]={th:presetTh(d.id,d.v)};syncView(d.id)},
   tab(d){tab=d.t;if(location.hash!=='#'+tab){try{location.hash=tab}catch(e){}}render();window.scrollTo(0,0)},
   wd(d){selWd=+d.v;render()},
   settings(){openSheet(shSettings)},
@@ -787,6 +936,10 @@ document.addEventListener('change',ev=>{const t=ev.target,d=t.dataset;
 document.addEventListener('input',ev=>{const t=ev.target;if(t.dataset.in==='q'){libQ=t.value;const l=$('#exlist');if(l)l.innerHTML=libList()}});
 document.addEventListener('focusin',ev=>{const t=ev.target;if(t.type==='number'&&t.select)setTimeout(()=>{try{t.select()}catch(e){}},0)});
 document.addEventListener('pointerdown',()=>{if(S.active&&S.settings.sound)audio()},{passive:true});
+let drag=null;
+document.addEventListener('pointerdown',ev=>{const el=ev.target.closest&&ev.target.closest('svg[data-3d]');if(!el)return;const id=el.getAttribute('data-3d');drag={id,x:ev.clientX,th:curTh(id)};try{el.setPointerCapture(ev.pointerId)}catch(e){}});
+document.addEventListener('pointermove',ev=>{if(!drag)return;VIEW[drag.id]={th:Math.max(-110,Math.min(20,drag.th-(ev.clientX-drag.x)*.6))};syncView(drag.id)});
+document.addEventListener('pointerup',()=>{drag=null});document.addEventListener('pointercancel',()=>{drag=null});
 function route(){const h=(location.hash||'').slice(1);if(['oggi','scheda','esercizi','progressi'].includes(h)&&h!==tab){tab=h;render()}}
 window.addEventListener('hashchange',route);
 const h0=(location.hash||'').slice(1);if(['oggi','scheda','esercizi','progressi'].includes(h0))tab=h0;
