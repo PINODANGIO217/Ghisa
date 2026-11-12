@@ -117,6 +117,8 @@ svg.fig{display:block}
 .btn.inv{background:var(--ink);color:var(--bg)}
 .sw{position:relative;overflow:hidden}
 .sw-act{position:absolute;top:0;right:0;bottom:0;display:flex}
+.sw>.sw-act,.sw>.sw-left{visibility:hidden}
+.sw.dl>.sw-act,.sw.dr>.sw-left{visibility:visible}
 .sw-act button{width:104px;font-weight:700;font-size:14px;color:#fff;background:#2B45F5}
 .sw-act button.del{background:#C2371F}
 .sw-row{position:relative;z-index:1;background:var(--bg);transition:transform .22s ease;touch-action:pan-y;-webkit-touch-callout:none;-webkit-user-select:none;user-select:none}
@@ -1010,7 +1012,7 @@ function gStart(x,y,target){
   if(li)GS.t=setTimeout(dragStart,380)}
 function gMove(x,y){if(!GS)return false;const dx=x-GS.x,dy=y-GS.y;
   if(GS.mode==='drag'){dragMove(y);return true}
-  if(GS.mode==='swipe'){GS.cur=Math.min(GS.WL?GS.WL+24:0,Math.max(GS.W?-GS.W-24:0,GS.base+dx));GS.row.style.transform=`translateX(${GS.cur}px)`;return true}
+  if(GS.mode==='swipe'){GS.cur=Math.min(GS.WL?GS.WL+24:0,Math.max(GS.W?-GS.W-24:0,GS.base+dx));GS.sw.classList.toggle('dl',GS.cur<0);GS.sw.classList.toggle('dr',GS.cur>0);GS.row.style.transform=`translateX(${GS.cur}px)`;return true}
   if(Math.abs(dx)>8||Math.abs(dy)>8){clearTimeout(GS.t);
     if(Math.abs(dx)>Math.abs(dy)&&((dx<0&&(GS.W||GS.base>0))||(dx>0&&(GS.WL||GS.base<0)))){GS.mode='swipe';GS.row.style.transition='none';return true}
     GS=null}
