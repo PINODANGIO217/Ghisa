@@ -202,7 +202,13 @@ body.resting #wk .in{padding-bottom:calc(220px + env(safe-area-inset-bottom,0px)
 .steps button{flex:none;width:40px;height:40px;border-radius:20px;border:1.5px solid var(--line);font-family:var(--disp);font-weight:800;font-size:18px}
 .steps button.all{background:var(--ok);border-color:var(--ok);color:var(--bg)}
 .steps button[aria-current="step"]{border-color:var(--ink);border-width:2.5px}
-.wk-name{font-family:var(--disp);font-weight:800;font-size:40px;line-height:.98;margin:14px 0 4px}
+.wk-name{font-family:var(--disp);font-weight:800;font-size:40px;line-height:.98;margin:6px 0 4px}
+.wk-sets{margin:14px 0 12px;padding:10px 8px 12px}
+.wk-sets .set,.wk-sets .sets-h{gap:6px;grid-template-columns:22px 1fr 1fr 48px}
+.wk-sets .set .stp button{width:28px;flex:none}
+.wk-sets .chk{width:48px}
+.wk-sets .note{margin:0 0 4px}
+.wk-sets .sets-h{margin-top:8px}
 .cues{margin:10px 0 0;padding:0 0 0 20px;color:var(--ink)}
 .cues li{margin-bottom:4px}
 .warn{margin-top:8px;font-size:14px;color:var(--muted)}
@@ -848,14 +854,16 @@ function renderWk(){
   const last=lastOf(it.ex),L=wLimits(e),canInc=last&&last.hit&&e.m!=='bw'&&e.m!=='time'&&it.sets.some(s=>!s.done&&s.w<=last.w&&s.w<L.max);
   let h=`<div class="wk-top"><span class="clock" id="clock">0:00</span><span class="prog" role="progressbar" aria-valuemin="0" aria-valuemax="${tot}" aria-valuenow="${done}" aria-label="Serie completate"><i style="width:${tot?done/tot*100:0}%"></i></span><button class="btn small" data-act="end">Termina</button></div>
   <div class="steps" role="group" aria-label="Esercizi">${a.items.map((x,j)=>`<button data-act="go" data-i="${j}" class="${x.sets.every(s=>s.done)?'all':''}"${j===i?' aria-current="step"':''} aria-label="Esercizio ${j+1}: ${EXM[x.ex].n}">${j+1}</button>`).join('')}<button data-act="addExA" aria-label="Aggiungi esercizio">+</button></div>
-  ${stage(e.id)}<h1 class="wk-name">${e.n}</h1><p class="muted">${GROUPS[e.g]}, ${e.eq.toLowerCase()}</p>
-  <ol class="cues">${e.cue.map(c=>`<li>${c}</li>`).join('')}</ol><p class="warn">${e.err}</p>`;
+  <h1 class="wk-name">${e.n}</h1><p class="muted">${GROUPS[e.g]}, ${e.eq.toLowerCase()}</p>
+  <section class="card wk-sets" aria-label="Serie">`;
   if(last)h+=`<div class="note"><span>Ultima volta, ${new Date(last.date).toLocaleDateString('it-IT',{day:'numeric',month:'short'})}: ${last.sets.map(x=>x.r).join(', ')}${e.m==='time'?' secondi':e.m==='bw'?' ripetizioni':' a '+nf(last.w)+' kg'}.${canInc?' Le hai chiuse tutte.':''}</span>${canInc?`<button class="btn small" data-act="inc">+${nf(L.step)} kg</button>`:''}</div>`;
   h+=`<div class="sets-h"><span></span><span>${e.m==='bw'||e.m==='time'?'Zavorra, kg':e.m==='db'?'Kg per manubrio':'Kg'}</span><span>${e.m==='time'?'Secondi':'Ripetizioni'}</span><span>Fatta</span></div>`;
   it.sets.forEach((s,j)=>{h+=`<div class="set${s.done?' done':''}"><span class="sn">${j+1}</span>${stp(`a:${i}:${j}:w`,s.w,'peso serie '+(j+1))}${stp(`a:${i}:${j}:r`,s.r,'ripetizioni serie '+(j+1))}<button class="chk" data-act="done" data-j="${j}" aria-pressed="${s.done}" aria-label="Serie ${j+1} fatta">${CHECK}</button></div>`});
-  h+=`<p class="muted sm" id="hint" style="margin:10px 0">${hint(it)}</p>
-  <div class="btn-row"><button class="btn ghost small" data-act="addSet">Aggiungi serie</button>${it.sets.length>1?`<button class="btn ghost small" data-act="delSet">Togli serie</button>`:''}</div>
-  <div class="btn-row" style="margin-top:8px">${i>0?`<button class="btn ghost small" data-act="go" data-i="${i-1}">Precedente</button>`:''}${i<a.items.length-1?`<button class="btn ghost small" data-act="go" data-i="${i+1}">Successivo</button>`:`<button class="btn small" data-act="end">Termina allenamento</button>`}</div>`;
+  h+=`${hint(it)?`<p class="muted sm" id="hint" style="margin:8px 0 0">${hint(it)}</p>`:'<p id="hint" hidden></p>'}
+  <div class="btn-row" style="margin-top:10px"><button class="btn ghost small" data-act="addSet">Aggiungi serie</button>${it.sets.length>1?`<button class="btn ghost small" data-act="delSet">Togli serie</button>`:''}</div></section>
+  <div class="btn-row">${i>0?`<button class="btn ghost small" data-act="go" data-i="${i-1}">Precedente</button>`:''}${i<a.items.length-1?`<button class="btn ghost small" data-act="go" data-i="${i+1}">Successivo</button>`:`<button class="btn small" data-act="end">Termina allenamento</button>`}</div>
+  <h2 class="sec">Come si fa</h2>${stage(e.id)}
+  <ol class="cues">${e.cue.map(c=>`<li>${c}</li>`).join('')}</ol><p class="warn">${e.err}</p>`;
   $('#wkBody').innerHTML=h;tick()}
 function nextPending(from){const a=S.active;for(let n=0;n<a.items.length;n++){const j=(from+n)%a.items.length;if(a.items[j].sets.some(s=>!s.done))return j}return -1}
 function markDone(j){
